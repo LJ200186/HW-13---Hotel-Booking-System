@@ -151,8 +151,14 @@ public class HotelBookingSystem {
             .replace("]","");
         
         System.out.println("\nBooking Details:\n- Room Type: " + RoomType + "\n- Boarding Type: "+ BoardType + "\n- Occupants: " + ListOccupants + "\n- Stay Duration: "+ StayDuration +" days (Check-out: "+StrCheckOutDate+")");
-          
-        int Cost = ((int)(RoomCosts.get(RoomType)) + (int)(BoardCosts.get(BoardType))) * (int)StayDuration;
+        
+        int Cost = 0;
+        
+        if(StayDuration > 7){
+            Cost = (int) (0.8*(((int)(RoomCosts.get(RoomType)) + (int)(BoardCosts.get(BoardType))) * (int)(StayDuration-7))) + (((int)(RoomCosts.get(RoomType)) + (int)(BoardCosts.get(BoardType))) * 7);
+        }else{
+            Cost = ((int)(RoomCosts.get(RoomType)) + (int)(BoardCosts.get(BoardType))) * (int)StayDuration;
+        }
         
         System.out.println("\nTo Pay: £"+ Cost+"\nEnter 'Done' when payment complete...");
         String PaymentComplete = Input.next();
