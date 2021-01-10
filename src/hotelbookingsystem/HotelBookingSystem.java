@@ -19,7 +19,7 @@ public class HotelBookingSystem {
     
     private static int SingleRoomCost = 50;
     private static int DoubleRoomCost = 75;
-    private static int FamilyRoomCost = 106;
+    private static int FamilyRoomCost = 105;
     
     private static int SelfCateringCost = 0;
     private static int HalfBoardCost = 10;
@@ -56,7 +56,7 @@ public class HotelBookingSystem {
     
     public static void getRoomsInfo(int Start, int End){
         
-        for (int i = Start; i < End; i++) {
+        for (int i = (Start+1); i <= End; i++) {
             
             Room CurrRoom = (Room) Rooms.get(i);
             
@@ -75,7 +75,7 @@ public class HotelBookingSystem {
         System.out.println("\n**VIEW ALL ROOMS**");
         
         System.out.println("\nSingle Rooms:");
-        getRoomsInfo(RoomNumStart, (RoomNumStart+SingleRooms));
+        getRoomsInfo(RoomNumStart-1, (RoomNumStart+SingleRooms));
         
         System.out.println("\nDouble Rooms:");
         getRoomsInfo((RoomNumStart+SingleRooms), (RoomNumStart+SingleRooms+DoubleRooms));
@@ -145,8 +145,12 @@ public class HotelBookingSystem {
         LocalDate CheckOutDate = LocalDate.parse(StrCheckOutDate);
         LocalDate lt = LocalDate.now();
         long StayDuration = ChronoUnit.DAYS.between(lt,CheckOutDate);
+
+        String ListOccupants = RoomOccupants.toString()
+            .replace("[","")
+            .replace("]","");
         
-        System.out.println("\nBooking Details:\n- Room Type: " + RoomType + "\n- Boarding Type: "+ BoardType + "\n- Occupants: " + RoomOccupants.toString() + "\n- Stay Duration: "+ StayDuration +" days (Check-out: "+StrCheckOutDate+")");
+        System.out.println("\nBooking Details:\n- Room Type: " + RoomType + "\n- Boarding Type: "+ BoardType + "\n- Occupants: " + ListOccupants + "\n- Stay Duration: "+ StayDuration +" days (Check-out: "+StrCheckOutDate+")");
           
         int Cost = ((int)(RoomCosts.get(RoomType)) + (int)(BoardCosts.get(BoardType))) * (int)StayDuration;
         
@@ -179,7 +183,7 @@ public class HotelBookingSystem {
     
     public static void RoomSetup(){
         
-        for (int i = 0; i < (SingleRooms+DoubleRooms+FamilyRooms); i++) {
+        for (int i = 0; i <= (SingleRooms+DoubleRooms+FamilyRooms); i++) {
             
             String RoomType;
             
