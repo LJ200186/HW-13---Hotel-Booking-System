@@ -19,7 +19,7 @@ public class HotelBookingSystem {
     
     private static int SingleRoomCost = 50;
     private static int DoubleRoomCost = 75;
-    private static int FamilyRoomCost = 105;
+    private static int FamilyRoomCost = 106;
     
     private static int SelfCateringCost = 0;
     private static int HalfBoardCost = 10;
