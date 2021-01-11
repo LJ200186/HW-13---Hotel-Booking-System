@@ -48,10 +48,39 @@ public class HotelBookingSystem {
 
             case 2:
                 CheckOut();
+                
+            case 3:
+                ViewRoomDetails();
 
             case 4:
                 ViewAllRooms();
         }
+    }
+    
+    public static void ViewRoomDetails(){
+        System.out.println("\n**VIEW ROOM DETAILS**\nEnter room number\n");
+        
+        int RoomNum = Input.nextInt();
+        Room CurrRoom = (Room) Rooms.get(RoomNum);
+        
+        if(CurrRoom.OccupiedTill.equals("")){
+            
+            System.out.println("\nRoom Details:\n- Type: "+CurrRoom.RoomType+"\n- Room is empty");
+        }else{
+            LocalDate CheckOutDate = LocalDate.parse(CurrRoom.OccupiedTill);
+            LocalDate lt = LocalDate.now();
+            long StayDuration = ChronoUnit.DAYS.between(lt, CheckOutDate);
+            
+            String ListOccupants = CurrRoom.Occupants.toString()
+                    .replace("[", "")
+                    .replace("]", "");
+            
+            System.out.println("\nRoom Details:\n- Room Type: " + CurrRoom.RoomType + "\n- Occupants Boarding Type: " + CurrRoom.OccupantsBoardType + "\n- Occupants: " + ListOccupants + "\n- Stay Duration Remaining: " + StayDuration + " days (Check-out: " + CurrRoom.OccupiedTill + ")");
+        }
+        
+        System.out.println("\n");
+        MainMenu();
+        
     }
 
     public static void CheckOutRoom(int RoomNum, Room CurrRoom) {
